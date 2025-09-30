@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_public_view_form_inherit_wkk_hr" model="ir.ui.view">
+        <field name="name">hr.employee.public.form.inherit.wkk.hr</field>
+        <field name="model">hr.employee.public</field>
+        <field name="inherit_id" ref="hr.hr_employee_public_view_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="Insurance">
+                    <field name="insurance_allocation_ids"/>
+                </page>
+                <page name="Family">
+                    <field name="dependent_ids"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
