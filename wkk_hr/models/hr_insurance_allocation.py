@@ -19,4 +19,3 @@ class HrInsuranceAllocation(models.Model):
     def _compute_employee_dependent_ids(self):
         for allocation in self:
             allocation.employee_dependent_ids = allocation.employee_id.dependent_ids
-

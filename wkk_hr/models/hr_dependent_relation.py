@@ -8,4 +8,3 @@ class HrDependentRelation(models.Model):
 
     name = fields.Char(name='Relation', required=True, index='trigram')
     sequence = fields.Integer(default=10)
-
