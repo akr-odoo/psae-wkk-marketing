@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_account_payment_register_form_inherit_wkk_account" model="ir.ui.view">
+        <field name="name">account.payment.register.form.inherit.wkk.account</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <group name="group1" position="inside">
+                <field name="cheque_number" invisible="not receive_cheque"/>
+                <field name="cheque_due_date" invisible="not receive_cheque"/>
+                <field name="cheque_amount" invisible="not receive_cheque"/>
+            </group>
+            <group name="group2" position="inside">
+                <label name="notification_label" for="notification_user_ids" string="Users to Notify" invisible="not receive_cheque"/>
+                <div name="notification_block" class="o_row" invisible="not receive_cheque">
+                    <field name="notification_user_ids" widget="many2many_tags"/>
+                    <field name="notify_days_before"/>
+                    <span>day(s) before</span>
+                </div>
+                <field name="cheque_bank_id" invisible="not receive_cheque"/>
+                <field name="cheque_memo" invisible="not receive_cheque"/>
+            </group>
+        </field>
+    </record>
+</odoo>
