@@ -10,6 +10,7 @@
     'depends': ['hr',],
     'data': [
         'security/ir.model.access.csv',
+        'security/ir_rule.xml',
         'views/hr_insurance_provider_views.xml',
         'views/hr_insurance_category_views.xml',
         'views/hr_insurance_allocation_views.xml',

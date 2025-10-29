@@ -13,13 +13,13 @@ class HrDependentRelation(models.Model):
     birthday = fields.Date(tracking=True)
     employee_id = fields.Many2one('hr.employee', ondelete='restrict', required=True, tracking=True)
     relation_id = fields.Many2one('hr.dependent.relation', ondelete='restrict', required=True, tracking=True)
-    insurance_allocation_ids = fields.Many2many('hr.insurance.allocation', domain="[('employee_id', '=', employee_id)]", tracking=True)
+    insurance_allocation_ids = fields.One2many('hr.insurance.allocation', 'dependent_id', tracking=True)
 
     @api.depends('birthday')
     def _compute_age(self):
         today = fields.Date.today()
         for birthdate, dependents in self.grouped('birthday').items():
-            dependents.age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+            dependents.age = birthdate and today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
 
     def _search_age(self, operator, value):
         today = fields.Date.today()

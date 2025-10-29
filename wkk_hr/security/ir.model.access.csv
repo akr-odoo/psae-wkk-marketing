@@ -4,7 +4,7 @@ wkk_hr.access_hr_insurance_provider_manager,wkk.hr.hr.insurance.provider.manager
 wkk_hr.access_hr_insurance_category_user,wkk.hr.hr.insurance.category.user,wkk_hr.model_hr_insurance_category,base.group_user,1,0,0,0
 wkk_hr.access_hr_insurance_category_manager,wkk.hr.hr.insurance.category.manager,wkk_hr.model_hr_insurance_category,hr.group_hr_manager,1,1,1,1
 wkk_hr.access_hr_insurance_allocation_user,wkk.hr.hr.insurance.allocation.user,wkk_hr.model_hr_insurance_allocation,base.group_user,1,0,0,0
-wkk_hr.access_hr_insurance_allocation_user,wkk.hr.hr.insurance.allocation.manager,wkk_hr.model_hr_insurance_allocation,hr.group_hr_manager,1,1,1,1
+wkk_hr.access_hr_insurance_allocation_manager,wkk.hr.hr.insurance.allocation.manager,wkk_hr.model_hr_insurance_allocation,hr.group_hr_manager,1,1,1,1
 wkk_hr.access_hr_dependent_dependent_user,wkk.hr.hr.dependent.dependent.user,wkk_hr.model_hr_dependent_dependent,base.group_user,1,0,0,0
 wkk_hr.access_hr_dependent_dependent_manager,wkk.hr.hr.dependent.dependent.manager,wkk_hr.model_hr_dependent_dependent,hr.group_hr_manager,1,1,1,1
 wkk_hr.access_hr_dependent_relation_user,wkk.hr.hr.dependent.relation.user,wkk_hr.model_hr_dependent_relation,base.group_user,1,0,0,0

@@ -4,7 +4,7 @@
         <field name="name">hr.dependent.dependent.view.list</field>
         <field name="model">hr.dependent.dependent</field>
         <field name="arch" type="xml">
-            <list editable="bottom">
+            <list>
                 <field name="name"/>
                 <field name="employee_id"/>
                 <field name="relation_id"/>
@@ -23,7 +23,7 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" nolabel="1" placeholder="Provider's name..."/>
+                            <field name="name" nolabel="1" placeholder="e.g., Johnny Jr."/>
                         </h1>
                     </div>
                     <group>
@@ -34,12 +34,12 @@
                     </group>
                     <notebook>
                         <page name="Insurance Allocations">
-                            <field name="insurance_allocation_ids"/>
+                            <field name="insurance_allocation_ids" context="{'default_employee_id': employee_id}"/>
                         </page>
                     </notebook>
                 </sheet>
+                <chatter/>
             </form>
-            <chatter/>
         </field>
     </record>
 
@@ -59,7 +59,7 @@
                 <group>
                     <filter string="Employee" name="group_employee" context="{'group_by': 'employee_id'}"/>
                     <filter string="Relation" name="group_relation" context="{'group_by': 'relation_id'}"/>
-                    <filter string="Birth Year" name="group_birth_year" context="{'group_by': 'birthday:year'}"/>
+                    <filter string="Birthday" name="group_birthday" context="{'group_by': 'birthday'}"/>
                 </group>
             </search>
         </field>
@@ -68,7 +68,7 @@
     <record id="action_hr_dependent_dependent_views" model="ir.actions.act_window">
         <field name="name">Dependents</field>
         <field name="res_model">hr.dependent.dependent</field>
-        <field name="view_mode">list, form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Manage Dependents

@@ -4,8 +4,8 @@
         <field name="name">hr.insurance.allocation.view.list</field>
         <field name="model">hr.insurance.allocation</field>
         <field name="arch" type="xml">
-            <list editable="bottom">
-                <field name="name"/>
+            <list>
+                <field name="name" string="Insurance Card Number"/>
                 <field name="employee_id"/>
                 <field name="dependent_id"/>
                 <field name="provider_id"/>
@@ -39,6 +39,7 @@
                         </group>
                     </group>
                 </sheet>
+                <chatter/>
             </form>
         </field>
     </record>
@@ -48,7 +49,7 @@
         <field name="model">hr.insurance.allocation</field>
         <field name="arch" type="xml">
             <search string="Search Insusrance Allocations">
-                <field name="name" string="Card Number"/>
+                <field name="name" string="Insurance Card Number"/>
                 <field name="employee_id"/>
                 <field name="dependent_id"/>
                 <field name="provider_id"/>
@@ -70,12 +71,12 @@
     </record>
 
     <record id="action_hr_insurance_allocation_views" model="ir.actions.act_window">
-        <field name="name">Dependents</field>
+        <field name="name">Insurance Allocations</field>
         <field name="res_model">hr.insurance.allocation</field>
-        <field name="view_mode">list, form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Manage Dependents
+                Manage Insurance Allocations
             </p>
         </field>
     </record>

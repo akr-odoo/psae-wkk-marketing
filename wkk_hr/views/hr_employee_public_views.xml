@@ -6,10 +6,10 @@
         <field name="inherit_id" ref="hr.hr_employee_public_view_form"/>
         <field name="arch" type="xml">
             <notebook position="inside">
-                <page name="Insurance">
+                <page name="Insurance" invisible="not is_user">
                     <field name="insurance_allocation_ids"/>
                 </page>
-                <page name="Family">
+                <page name="Family" invisible="not is_user">
                     <field name="dependent_ids"/>
                 </page>
             </notebook>
