@@ -8,4 +8,3 @@ class HrInsuranceCategory(models.Model):
 
     name = fields.Char(name='category', required=True, index='trigram')
     sequence = fields.Integer(default=10)
-
