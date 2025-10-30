@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="hr_insurance_menu"
+        name="Medical Insurance"
+        groups="hr.group_hr_user"
+        parent="hr.menu_hr_root"
+        sequence="30">
+        <menuitem
+            id="hr_insurance_providers_menu"
+            name="Insurance Providers"
+            groups="hr.group_hr_manager"
+            action="wkk_hr.action_hr_insurance_provider_views"/>
+        <menuitem
+            id="hr_insurance_categories_menu"
+            name="Insurance Categories"
+            groups="hr.group_hr_manager"
+            action="wkk_hr.action_hr_insurance_category_views"/>
+        <menuitem
+            id="hr_insurance_allocations_menu"
+            name="Insurance Allocations"
+            action="wkk_hr.action_hr_insurance_allocation_views"/>
+        <menuitem
+            id="hr_dependent_dependents_menu"
+            name="Dependents"
+            action="wkk_hr.action_hr_dependent_dependent_views"/>
+    </menuitem>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_dependent_dependent_personal_rule" model="ir.rule">
+        <field name="name">Personal Dependents</field>
+        <field name="model_id" ref="wkk_hr.model_hr_dependent_dependent"/>
+        <field name="domain_force">[('employee_id', '=', user.employee_id.id)]</field>
+        <field name="groups" eval="[Command.link(ref('base.group_user'))]"/>
+    </record>
+
+    <record id="hr_insurance_allocation_personal_rule" model="ir.rule">
+        <field name="name">Personal Insurance Allocations</field>
+        <field name="model_id" ref="wkk_hr.model_hr_insurance_allocation"/>
+        <field name="domain_force">[('employee_id', '=', user.employee_id.id)]</field>
+        <field name="groups" eval="[Command.link(ref('base.group_user'))]"/>
+    </record>
+
+    <record id="hr_dependent_dependent_admin_rule" model="ir.rule">
+        <field name="name">Dependents: Admin</field>
+        <field name="model_id" ref="wkk_hr.model_hr_dependent_dependent"/>
+        <field name="groups" eval="[Command.link(ref('hr.group_hr_user'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record id="hr_insurance_allocation_admin_rule" model="ir.rule">
+        <field name="name">Insurance Allocations: Admin</field>
+        <field name="model_id" ref="wkk_hr.model_hr_insurance_allocation"/>
+        <field name="groups" eval="[Command.link(ref('hr.group_hr_user'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+</odoo>
