@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="documents_type_menu"
+        name="Document Types"
+        action="wkk_approvals.action_documents_type_views"
+        parent="account.menu_finance_configuration"
+        sequence="33"/>
+</odoo>

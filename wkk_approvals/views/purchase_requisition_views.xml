@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_requisition_form_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">purchase.requisition.form.inherit.wkk.approvals</field>
+        <field name="model">purchase.requisition</field>
+        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+        <field name="arch" type="xml">
+            <field name="vendor_id" position="attributes">
+                <attribute name="domain">[('vendor_state', '=', 'approved')]</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
