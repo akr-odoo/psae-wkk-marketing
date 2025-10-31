@@ -1,0 +1,15 @@
+<odoo>
+    <record id="approval_request_view_form_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">approval.request.view.form.inherit.wkk.approvals</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_form"/>
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="vendor_id" readonly="request_status != 'new'" invisible="approval_type != 'vendor_approval'"/>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="invisible" add="approval_type == 'vendor_approval'" separator=" or "/>
+            </field>
+        </field>
+    </record>
+</odoo>

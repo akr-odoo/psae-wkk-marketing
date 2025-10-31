@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_category_view_form_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">approval.category.view.form.inherit.wkk.approvals</field>
+        <field name="model">approval.category</field>
+        <field name="inherit_id" ref="approvals.approval_category_view_form"/>
+        <field name="arch" type="xml">
+            <field name="has_date" position="attributes">
+                <attribute name="readonly" separator=" or " add="approval_type == 'vendor_approval'"/>
+            </field>
+            <field name="has_partner" position="attributes">
+                <attribute name="readonly" separator=" or " add="approval_type == 'vendor_approval'"/>
+            </field>
+        </field>
+    </record>
+</odoo>
