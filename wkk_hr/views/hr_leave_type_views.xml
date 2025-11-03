@@ -1,0 +1,12 @@
+<odoo>
+    <record id="hr_holiday_status_view_form_inherit_wkk_hr" model="ir.ui.view">
+        <field name="name">hr.leave.type.form.inherit.wkk.hr</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
+        <field name="arch" type="xml">
+             <group id="time_off_requests" position="inside">
+                    <field name="approval_categ_id"/>
+             </group>
+        </field>
+    </record>
+</odoo>
