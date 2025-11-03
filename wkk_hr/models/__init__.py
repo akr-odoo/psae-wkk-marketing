@@ -5,3 +5,5 @@ from . import hr_dependent_relation
 from . import hr_dependent_dependent
 from . import hr_employee
 from . import hr_employee_public
+from . import hr_job
+from . import hr_version
