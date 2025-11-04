@@ -5,7 +5,7 @@
     'author': 'Odoo PS',
     'website': 'https://www.odoo.com',
     'category': 'Human Resources',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'license': 'OEEL-1',
     'depends': ['hr',],
     'data': [
@@ -19,7 +19,8 @@
         'views/hr_menu_views.xml',
         'views/hr_employee_public_views.xml',
         'views/hr_employee_views.xml',
+        'views/hr_job_views.xml',
     ],
-    'task_ids': [5128957, 5128958]
+    'task_ids': [5128957, 5128958, 5165854]
 }
 
