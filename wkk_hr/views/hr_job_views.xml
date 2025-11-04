@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_job_form_inherit_wkk_hr" model="ir.ui.view">
+        <field name="name">hr.job.view.form.inherit.wkk.hr</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <group name="contract" position="inside">
+                <field name="minimum_salary"/>
+                <field name="maximum_salary"/>
+            </group>
+        </field>
+    </record>
+</odoo>
