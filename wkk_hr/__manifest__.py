@@ -5,9 +5,9 @@
     'author': 'Odoo PS',
     'website': 'https://www.odoo.com',
     'category': 'Human Resources',
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.2.0',
     'license': 'OEEL-1',
-    'depends': ['hr',],
+    'depends': ['hr_holidays', 'approvals'],
     'data': [
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
@@ -20,7 +20,10 @@
         'views/hr_employee_public_views.xml',
         'views/hr_employee_views.xml',
         'views/hr_job_views.xml',
+        'views/hr_leave_type_views.xml',
+        'views/hr_leave_views.xml',
+        'views/approval_category_views.xml',
     ],
-    'task_ids': [5128957, 5128958, 5165854]
+    'task_ids': [5128957, 5128958, 5165854, 5166823]
 }
 
