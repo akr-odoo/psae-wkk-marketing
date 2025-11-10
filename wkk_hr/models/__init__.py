@@ -7,3 +7,7 @@ from . import hr_employee
 from . import hr_employee_public
 from . import hr_job
 from . import hr_version
+from . import approval_category
+from . import hr_leave_type
+from . import hr_leave
+from . import approval_request
