@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_category_approver_view_form_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">approval.category.approver.view.form.inherit.wkk_approvals</field>
+        <field name="model">approval.category.approver</field>
+        <field name="inherit_id" ref="approvals.approval_category_approver_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="model_name" column_invisible="1"/> <!-- compute -->
+                <field name="user_field" widget="DynamicModelFieldSelectorChar" options="{'model': 'model_name'}" column_invisible="not parent.model_name"/>
+                <field name="apply_on_domain" widget="domain" options="{'model': 'model_name', 'in_dialog': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

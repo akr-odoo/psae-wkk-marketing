@@ -49,4 +49,20 @@
             </setting>
         </field>
     </record>
+    <record id="res_config_settings_view_form_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.wkk_approvals</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <form position="inside">
+                <app data-string="Approvals" string="Approvals" name="wkk_approvals">
+                    <block title="Model Settings" name="approvals_model_settings">
+                        <setting company_dependent="1" help="Models that use the approvals mixin and their settings.">
+                            <field name="model_approval_settings_ids"/>
+                        </setting>
+                    </block>
+                </app>
+            </form>
+        </field>
+    </record>
 </odoo>

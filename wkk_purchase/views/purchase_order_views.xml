@@ -1,16 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <record id="view_order_form_inherit_wkk_sales" model="ir.ui.view">
-        <field name="name">sale.order.form.inherit.wkk.sales</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+    <record id="view_order_form_inherit_wkk_purchase" model="ir.ui.view">
+        <field name="name">view.order.form.inherit.wkk.purchase</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="project_purchase.view_order_form_inherit_project_purchase"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='sales_person']/field[@name='client_order_ref']" position="attributes">
-				<attribute name="invisible">1</attribute>
-			</xpath>
-			<group name="order_details" position="inside">
-				<field name="client_order_ref" required="1"/>
-			</group>
-            <!-- Approval Dev -->
             <header position="inside">
                 <field name="approval_request_id" invisible="1"/>
                 <field name="requires_approval" invisible="1"/>
@@ -46,43 +40,70 @@
                     Approval(s)
                 </button>
             </div>
-            <xpath expr="//button[@name='action_confirm'][1]" position="attributes">
+            <xpath expr="//button[@name='action_rfq_send'][1]" position="attributes">
                 <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
             </xpath>
-            <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+            <xpath expr="//button[@name='action_rfq_send'][2]" position="attributes">
                 <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
             </xpath>
-            <xpath expr="//button[@id='send_proforma_primary']" position="attributes">
+            <xpath expr="//button[@name='action_rfq_send'][3]" position="attributes">
                 <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
             </xpath>
-            <xpath expr="//button[@id='send_proforma']" position="attributes">
+            <xpath expr="//button[@name='print_quotation'][1]" position="attributes">
                 <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
             </xpath>
-            <xpath expr="//button[@id='quotation_send_primary']" position="attributes">
+            <xpath expr="//button[@name='button_confirm'][1]" position="attributes">
                 <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
             </xpath>
-            <xpath expr="//button[@id='quotation_send']" position="attributes">
+            <xpath expr="//button[@name='button_confirm'][2]" position="attributes">
+                <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
+            </xpath>
+            <xpath expr="//button[@name='button_approve'][1]" position="attributes">
+                <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
+            </xpath>
+            <xpath expr="//button[@name='button_draft'][1]" position="attributes">
+                <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
+            </xpath>
+            <xpath expr="//button[@name='button_lock'][1]" position="attributes">
+                <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
+            </xpath>
+            <xpath expr="//button[@name='button_unlock'][1]" position="attributes">
                 <attribute name="invisible" add="not id or (approval_status != 'approved' and requires_approval)" separator=" or "/>
             </xpath>
             <field name="partner_id" position="attributes">
                 <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
             </field>
-            <field name="validity_date" position="attributes">
+            <field name="partner_ref" position="attributes">
+                <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
+            </field>
+            <field name="currency_id" position="attributes">
                 <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
             </field>
             <field name="date_order" position="attributes">
                 <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
             </field>
+            <field name="date_planned" position="attributes">
+                <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
+            </field>
+            <field name="project_id" position="attributes">
+                <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
+            </field>
             <field name="order_line" position="attributes">
                 <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
             </field>
-            <group name="note_group" position="inside">
-                <group class="oe_subtotal_footer d-flex order-1 order-lg-2 flex-column gap-0" name="company_total" invisible="company_currency_id == currency_id">
-                    <span style="font-weight: bold;">Total (Company Currency):</span>
-                    <field name="company_currency_id" invisible="1"/> <!-- Hidden field to ensure currency context -->
-                    <field name="total_in_company_currency" widget="monetary" options="{'currency_field': 'company_currency_id'}" nolabel="1" style="font-weight: bold;"/>
-                </group>
-            </group>
+            <field name="user_id" position="attributes">
+                <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
+            </field>
+            <field name="origin" position="attributes">
+                <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
+            </field>
+            <field name="payment_term_id" position="attributes">
+                <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
+            </field>
+            <field name="fiscal_position_id" position="attributes">
+                <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
+            </field>
+
         </field>
     </record>
 </odoo>

@@ -6,14 +6,17 @@
     'license': 'OEEL-1',
     'website': 'https://www.odoo.com',
     'category': 'Human Resources/Approvals',
-    'version': '19.0.1.1.0',
+    'version': '19.0.2.0.0',
     'depends': ['approvals', 'accountant', 'purchase_requisition', 'documents'],
     'data': [
         'security/ir.model.access.csv',
         'data/ir_cron_data.xml',
         'views/account_move_views.xml',
         'views/approval_category_views.xml',
+        "views/model_approval_settings_views.xml",
         'views/approval_request_views.xml',
+        "views/approval_product_line_views.xml",
+        "views/approval_category_approver_views.xml",
         'views/documents_type_views.xml',
         'views/purchase_order_views.xml',
         'views/purchase_requisition_views.xml',
@@ -21,5 +24,5 @@
         'views/res_partner_views.xml',
         'views/account_menu_items.xml',
     ],
-    'task_ids': [5122426]
+    'task_ids': [5122426, 5211287]
 }
