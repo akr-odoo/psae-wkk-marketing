@@ -10,6 +10,12 @@
             <field name="partner_id" position="attributes">
                 <attribute name="invisible" add="approval_type == 'vendor_approval'" separator=" or "/>
             </field>
+            <!-- Approvals on PO, SO, Invoices/Bills -->
+            <group name="request_details" position="inside">
+                <field name="res_model" invisible="not res_model" />
+                <field name="res_id" invisible="not res_id" />
+                <field name="origin_reference" invisible="not origin_reference" />
+            </group>
         </field>
     </record>
 </odoo>
