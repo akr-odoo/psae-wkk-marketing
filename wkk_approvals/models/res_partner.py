@@ -31,11 +31,32 @@ class ResPartner(models.Model):
     vendor_approval_ids = fields.One2many('approval.request', 'vendor_id')
     vendor_approvals_count = fields.Integer(compute='_compute_vendor_approvals_count', store=True)
     requires_approval = fields.Boolean(compute='_compute_requires_approval')
+    company_cr = fields.Char(copy=False)
+
+    @api.model
+    def _get_vendor_watched_fields(self):
+        return ['company_cr', 'name', 'vat']
 
     def write(self, vals):
-        if vals and ('vendor_state' not in vals or len(vals) > 1):
-            vals.update({'vendor_state': 'modified'})
-        return super().write(vals)
+        num_args = len(vals)
+        watched_fields = self._get_vendor_watched_fields()
+        # Trigger the modified vendor check when the vendor state isn't being written
+        # or it isn't the only value written and one of the watched fields are in the values to write
+        is_modifying = (
+            not self.env.context.get('skip_vendor_modified')
+            and vals
+            and ('vendor_state' not in vals or num_args > 1)
+            and watched_fields & vals.keys()
+        )
+        approved_vendors = self.env['res.partner']
+        if is_modifying:
+            # Check if the partners are being approved and simulatenously have values changed
+            if num_args > 1 and vals.get('vendor_state', '') == 'approved':
+                approved_vendors = self
+            else:
+                approved_vendors = self.filtered(lambda partner: partner.vendor_state == 'approved')
+            super(ResPartner, approved_vendors.with_context(skip_vendor_modified=True)).write({**vals, 'vendor_state': 'modified'})
+        return super(ResPartner, self - approved_vendors).write(vals)
 
     @api.depends('vendor_approval_ids')
     def _compute_vendor_approvals_count(self):
