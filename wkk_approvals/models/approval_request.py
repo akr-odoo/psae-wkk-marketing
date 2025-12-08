@@ -4,7 +4,7 @@ from odoo.tools.safe_eval import safe_eval
 class ApprovalRequest(models.Model):
     _inherit = 'approval.request'
 
-    vendor_id = fields.Many2one('res.partner', copy=False, domain=[('partner_type', 'in', ['vendor', 'both'])])
+    vendor_id = fields.Many2one('res.partner', copy=False)
     res_model = fields.Char(string='Origin Model', readonly=True, help="Model of the originating document")
     res_id = fields.Integer(string='Origin ID', readonly=True, help="ID of the originating document")
     origin_reference = fields.Integer(string='Origin Reference', readonly=True, help="Used to link back to the originating document")
