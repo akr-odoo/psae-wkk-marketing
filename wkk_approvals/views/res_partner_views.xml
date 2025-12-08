@@ -23,7 +23,7 @@
                 <header>
                     <button string="Reset Vendor State" name="action_reset_vendor_state" type="object" class="btn btn-secondary" invisible="vendor_state == 'draft'" groups="base.group_system,base.group_no_one"/>
                     <button string="Submit for Approval" name="action_request_vendor_approval" type="object" class="btn btn-primary" invisible="not requires_approval"/>
-                    <field name="vendor_state" widget="statusbar" statusbar_visible="draft,under_review,approved,rejected" invisible="partner_type == 'customer'"/>
+                    <field name="vendor_state" widget="statusbar" statusbar_visible="draft,under_review,approved,rejected"/>
                 </header>
             </sheet>
             <field name="vat" position="after">
@@ -31,7 +31,7 @@
                 <field name="partner_type"/>
             </field>
             <notebook position="inside">
-                <page name="documents_page" string="Documents" invisible="partner_type not in ['vendor', 'both']">
+                <page name="documents_page" string="Documents">
                     <field name="document_ids" mode="list">
                         <list string="Documents" editable="bottom">
                             <field name="attachment_id"/>
