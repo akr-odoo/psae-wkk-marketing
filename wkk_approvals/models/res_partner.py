@@ -70,7 +70,6 @@ class ResPartner(models.Model):
             partner.requires_approval = (
                 (partner.company_id and partner.company_id.vendor_require_approval
                 or self.env.company.vendor_require_approval)
-                and partner.partner_type in ['vendor', 'both']
                 and not partner._origin.vendor_approval_ids.filtered(lambda approval: approval.request_status in ['new', 'pending'])
                 and partner.vendor_state != 'approved'
             )
@@ -150,8 +149,7 @@ class ResPartner(models.Model):
     def _cron_check_vendor_expired_documents(self, batch_size=500):
         today = fields.Date.context_today(self)
         domain = (
-            Domain('partner_type', 'in', ('vendor', 'both'))
-            & Domain('vendor_state', '!=', 'expired_documents')
+            Domain('vendor_state', '!=', 'expired_documents')
             & Domain('document_ids', 'any', [('expiry_date', '<=', today)])
         )
         vendors = self.search(domain, limit=batch_size)
@@ -194,7 +192,6 @@ class ResPartner(models.Model):
                     LEFT JOIN RES_COMPANY COMPANY ON COMPANY.ID = PARTNER.COMPANY_ID
                 WHERE
                     DOC.EXPIRY_DATE - CAST(COALESCE(COMPANY.DOCUMENT_EXPIRY_NOTIFY_USERS_DAYS, %(days)s) || ' ' || 'DAY' AS INTERVAL) <= CURRENT_DATE
-                    AND PARTNER.PARTNER_TYPE IN ('vendor', 'both')
                     AND NOT EXISTS (
                         SELECT
                             1
@@ -245,8 +242,7 @@ class ResPartner(models.Model):
         default_users_to_notify = company.vendor_modification_notify_user_ids
         partner_model_id, activity_id = self._get_res_partner_notification_ids()
         domain = (
-            Domain('partner_type', 'in', ['vendor', 'both'])
-            & Domain('vendor_state', '=', 'modified')
+            Domain('vendor_state', '=', 'modified')
             & Domain('activity_ids', 'not any', Domain('is_vendor_modified_notification', '=', True))
         )
         modified_vendors = self.search(domain=domain, limit=batch_size)
