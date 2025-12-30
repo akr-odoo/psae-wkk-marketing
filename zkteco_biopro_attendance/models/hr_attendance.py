@@ -1,13 +1,12 @@
-import pytz
-from dateutil.relativedelta import relativedelta
-
-from odoo import models, fields, api, _
-
-from odoo.exceptions import ValidationError
+from collections import defaultdict
 from datetime import datetime, timedelta
 
+import pytz
+from dateutil.relativedelta import relativedelta
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
+
 BATCH_SIZE = 100
-from collections import defaultdict
 
 
 class HrAttendance(models.Model):
@@ -17,7 +16,6 @@ class HrAttendance(models.Model):
     zkteco_checkout_id = fields.Integer()
     zkteco_checkin_id = fields.Integer()
     server_id = fields.Many2one("biotime.server")
-    
 
     @api.model
     def _get_from_server(self):
@@ -30,19 +28,18 @@ class HrAttendance(models.Model):
         for e in employees_list:
             employees_code_id_dict[e.get("zk_emp_code")].append(e.get("id"))
 
-        attendance_zkteco_raw = self.env["hr.attendance"].read_group(
-            [
+        attendance_zkteco_raw = self.env["hr.attendance"]._read_group(
+            domain=[
                 ('zkteco_checkout_id', '!=', False),
                 ('zkteco_checkin_id', '!=', False),
                 ('server_id', 'in', servers.ids)
             ],
-            ['server_id', 'zkteco_checkin_id:array_agg', 'zkteco_checkout_id:array_agg'],
-            ['server_id']
+            groupby=['server_id'],
+            aggregates=['zkteco_checkin_id:array_agg', 'zkteco_checkout_id:array_agg'],
         )
         zkteco_ids_server_dict = {}
-        for entry in attendance_zkteco_raw:
-            key = entry.get('server_id')[0]
-            zkteco_ids_server_dict[key] = entry.get('zkteco_checkin_id', []) + entry.get('zkteco_checkout_id', [])
+        for server, check_ins, check_outs in attendance_zkteco_raw:
+            zkteco_ids_server_dict[server.id] = check_ins + check_outs
 
         for server in servers:
             server.get_jwt_token(raise_alert=False)
@@ -82,11 +79,11 @@ class HrAttendance(models.Model):
                 if employee_attendance.get(emp_code):
                     if time_difference <= server.duplicate_threshold:
                         bad_vals.append(_("Ignoring duplicate checkin entry in the same minute:\n") + str(employee_attendance[emp_code]))
-                    else: 
+                    else:
                         bad_vals.append(_("No matching checkout for checkin:\n") + str(employee_attendance[emp_code]))
                         employee_attendance[emp_code] = attendance
                 else:
-                    employee_attendance[emp_code] = attendance                   
+                    employee_attendance[emp_code] = attendance
             else:  # check out entry
                 if prev_punch := duplicate_attendance.get(attendance.get("emp_code")):
                     prev_entry = datetime.strptime(prev_punch.get("punch_time"), datetime_format)
@@ -101,7 +98,6 @@ class HrAttendance(models.Model):
                     checkout_entry = attendance
                     checkin_entry = employee_attendance.get(emp_code)
                     employee_attendance[emp_code] = False
-
 
                     # Timezone timedelta manipulation.
                     # On odoo time is stored in UTC whereas on biotime it will be local time

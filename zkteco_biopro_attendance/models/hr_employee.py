@@ -1,23 +1,20 @@
-from odoo import _, models, fields
+from odoo import _, fields, models
 from odoo.exceptions import UserError
+
 from .tools import batch
-
-
-class HrEmployeeBase(models.AbstractModel):
-    _inherit = 'hr.employee.base'
-
-    zk_emp_code = fields.Char(index="trigram")
-    zk_emp_id = fields.Char(index="trigram")
 
 
 class HrEmployeePrivate(models.Model):
     _inherit = 'hr.employee'
 
+    zk_emp_code = fields.Char(index="trigram", groups="hr.group_hr_user")
+    zk_emp_id = fields.Char(index="trigram", groups="hr.group_hr_user")
+
     def sync_with_server(self):
         odoo_employee_ids = self.env['hr.employee'].search([('zk_emp_code', '!=', False), ('zk_emp_id', '=', False)])
 
         if not odoo_employee_ids:
-            return UserError('There are no Odoo employees that currently need to be synchronized with ZKTeco.')
+            return UserError(_('There are no Odoo employees that currently need to be synchronized with ZKTeco.'))
 
         server = self.env['biotime.server'].search([], limit=1)
 

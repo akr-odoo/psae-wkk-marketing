@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import json
 from datetime import timedelta
-from odoo import api, models, fields, _
+from urllib.parse import urljoin
+
 import requests
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from requests.exceptions import HTTPError
-from urllib.parse import urljoin
-import json
 
 
 class BioTimeServer(models.Model):
@@ -27,7 +28,7 @@ class BioTimeServer(models.Model):
     authentication_payload = fields.Json()
     jwt_token = fields.Char()
 
-    last_attendance_sync = fields.Datetime(readonly=False)
+    last_attendance_sync = fields.Datetime()
 
     url = fields.Char(compute='_compute_url')
 

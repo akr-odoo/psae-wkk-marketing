@@ -11,7 +11,7 @@
     ''',
     'author': "Odoo PS",
     'website': "https://www.odoo.com",
-    "version": "18.0.0.2.1",
+    "version": "19.0.0.0.0",
     'license': 'OEEL-1',
     'depends': ['hr_attendance'],
     'data': [
