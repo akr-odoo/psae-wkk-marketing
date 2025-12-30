@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zkteco_authentication_endpoint" model="ir.config_parameter">
+        <field name="key">zkteco_biopro_attendance.zkteco_auth_endpoint</field>
+        <field name="value">/jwt-api-token-auth/</field>
+    </record>
+    <record id="zkteco_prefix" model="ir.config_parameter">
+        <field name="key">zkteco_biopro_attendance.zkteco_prefix</field>
+        <field name="value">JWT</field>
+    </record>
+</odoo>
