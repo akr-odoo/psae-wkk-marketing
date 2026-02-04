@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_partner_form_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.wkk.approvals</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name='arch' type='xml'>
+            <div name="button_box" position="inside">
+                <button name="action_view_vendor_approvals"
+                    class="oe_stat_button"
+                    icon="fa-pencil-square-o"
+                    type="object"
+                    invisible="not vendor_approvals_count">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="vendor_approvals_count"/>
+                        </span>
+                        <span class="o_stat_text">Vendor Approval Requests</span>
+                    </div>
+                </button>
+            </div>
+            <sheet position="before">
+                <header>
+                    <button string="Reset Vendor State" name="action_reset_vendor_state" type="object" class="btn btn-secondary" invisible="vendor_state == 'draft'" groups="base.group_system,base.group_no_one"/>
+                    <button string="Submit for Approval" name="action_request_vendor_approval" type="object" class="btn btn-primary" invisible="not requires_approval"/>
+                    <field name="vendor_state" widget="statusbar" statusbar_visible="draft,under_review,approved,rejected"/>
+                </header>
+            </sheet>
+            <field name="vat" position="after">
+                <field name="company_cr" string="Company CR"/>
+                <field name="partner_type"/>
+            </field>
+            <notebook position="inside">
+                <page name="documents_page" string="Documents">
+                    <field name="document_ids" mode="list">
+                        <list string="Documents" editable="bottom">
+                            <field name="attachment_id"/>
+                            <field name="document_type_id"/>
+                            <field name="expiry_date"/>
+                            <field name="description"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_partner_tree_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">res.partner.list.inherit.wkk.approvals</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name='arch' type='xml'>
+            <field name="phone" position="after">
+                <field name="company_cr" string="Company CR" optional="hide"/>
+                <field name="partner_type" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">res.partner.select.inherit.wkk.approvals</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="company_cr" string="Company CR"/>
+                <field name="partner_type"/>
+                <field name="vendor_state"/>
+            </field>
+            <filter name="type_company" position="after">
+                <filter string="Vendors" name="partner_vendor" domain="[('partner_type', 'in', ['vendor', 'both'])]"/>
+                <filter string="Customers" name="partner_customer" domain="[('partner_type', 'in', ['customer', 'both'])]"/>
+                <separator/>
+            </filter>
+            <filter name="group_by_properties" position="after">
+                <filter string="Company CR" name="group_by_company_cr" context="{'group_by': 'company_cr'}"/>
+                <filter string="Partner Type" name="group_by_partner_type" context="{'group_by': 'partner_type'}"/>
+                <filter string="Vendor State" name="group_by_vendor_state" context="{'group_by': 'vendor_state'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_category_view_form_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">approval.category.view.form.inherit.wkk.approvals</field>
+        <field name="model">approval.category</field>
+        <field name="inherit_id" ref="approvals.approval_category_view_form"/>
+        <field name="arch" type="xml">
+            <field name="has_date" position="attributes">
+                <attribute name="readonly" separator=" or " add="approval_type == 'vendor_approval'"/>
+            </field>
+            <field name="has_partner" position="attributes">
+                <attribute name="readonly" separator=" or " add="approval_type == 'vendor_approval'"/>
+            </field>
+            <!-- Approvals on SO, PO, Invoices/Bills -->
+            <xpath expr="//page[@name='options']/group" position="attributes">
+                <attribute name="col">12</attribute>
+            </xpath>
+            <group name="option_settings" position="attributes">
+                <attribute name="colspan">4</attribute>
+            </group>
+            <group name="approvers" position="attributes">
+                <attribute name="colspan">8</attribute>
+            </group>
+            <xpath expr="//field[@name='automated_sequence']/.." position="inside">
+                <field name="model_id" options="{'no_create': True, 'no_edit': True}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

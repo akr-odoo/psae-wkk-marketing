@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_insurance_allocation_list" model="ir.ui.view">
+        <field name="name">hr.insurance.allocation.view.list</field>
+        <field name="model">hr.insurance.allocation</field>
+        <field name="arch" type="xml">
+            <list string="Insurance Allocations">
+                <field name="name" string="Insurance Card Number"/>
+                <field name="employee_id"/>
+                <field name="dependent_id" domain="[('id', 'in', employee_dependent_ids)]"/>
+                <field name="provider_id"/>
+                <field name="category_id"/>
+                <field name="expiry_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_insurance_allocation_view_form" model="ir.ui.view">
+        <field name="name">hr.insurance.allocation.view.form</field>
+        <field name="model">hr.insurance.allocation</field>
+        <field name="arch" type="xml">
+            <form string="Insurance Allocation">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" nolabel="1" placeholder="e.g. A-12345678"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="dependent_id" domain="[('id', 'in', employee_dependent_ids)]"/>
+                        </group>
+
+                        <group>
+                            <field name="provider_id"/>
+                            <field name="category_id"/>
+                            <field name="expiry_date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_insurance_allocation_filter" model="ir.ui.view">
+        <field name="name">hr.insurance.allocation.search</field>
+        <field name="model">hr.insurance.allocation</field>
+        <field name="arch" type="xml">
+            <search string="Search Insusrance Allocations">
+                <field name="name" string="Insurance Card Number"/>
+                <field name="employee_id"/>
+                <field name="dependent_id"/>
+                <field name="provider_id"/>
+                <field name="category_id"/>
+                <separator/>
+                <filter string="My Employees' Allocations" name="my_employees_allocations" domain="[('employee_id.user_id', '=', uid)]"/>
+                <filter string="Expiry Date" name="expiry_date" date="expiry_date"/>
+                <filter string="For Dependents" name="for_dependents" domain="[('dependent_id', '!=', False)]"/>
+                <filter string="For Employees Only" name="for_employees_only" domain="[('dependent_id', '=', False)]"/>
+                <group>
+                    <filter string="Employee" name="group_employee" context="{'group_by':'employee_id'}"/>
+                    <filter string="Dependent" name="group_dependent" context="{'group_by':'dependent_id'}"/>
+                    <filter string="Insurance Provider" name="group_provider" context="{'group_by':'provider_id'}"/>
+                    <filter string="Insurance Category" name="group_category" context="{'group_by':'category_id'}"/>
+                    <filter string="Expiration" name="group_expiry" context="{'group_by':'expiry_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_insurance_allocation_views" model="ir.actions.act_window">
+        <field name="name">Insurance Allocations</field>
+        <field name="res_model">hr.insurance.allocation</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage Insurance Allocations
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_cancellation_email" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.purchase.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <setting id="po_order_approval" position="after">
+                <setting groups="purchase.group_purchase_manager" company_dependent="1"
+                    help="When selected, approval will be required on vendor status change.">
+                    <field name="vendor_require_approval"
+                        string="Require Approval on Vendors"/>
+                    <div class="content-group" invisible="not vendor_require_approval">
+                        <div class="mt8">
+                            <div class="mt16">
+                                <label for="vendor_require_approval"
+                                    string="Approval Type"
+                                    class="o_light_label mr8"/>
+                                <field name="vendor_approval_category_id"
+                                    required="vendor_require_approval"
+                                    domain="[('approval_type', '=', 'vendor_approval')]"
+                                    class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </setting>
+                <setting groups="purchase.group_purchase_manager" company_dependent="1" string="Vendor Document Expiry Notification"
+                    help="Configure the notification settings of vendor document expiry.">
+                    <div class="content-group">
+                        <div class="row mt16">
+                            <label string="Users" for="document_expiry_notify_user_ids" class="col-lg-3 o_light_label"/>
+                            <field name="document_expiry_notify_user_ids" widget="many2many_tags"/>
+                        </div>
+                        <div class="row mt16">
+                            <label string="Days" for="document_expiry_notify_users_days" class="col-lg-3 o_light_label"/>
+                            <field name="document_expiry_notify_users_days"/>
+                        </div>
+                    </div>
+                </setting>
+                <setting groups="purchase.group_purchase_manager" company_dependent="1" string="Vendor Modification Notification"
+                    help="Configure the notification settings of vendor modification.">
+                    <div class="content-group">
+                        <div class="row mt16">
+                            <label string="Users" for="vendor_modification_notify_user_ids" class="col-lg-3 o_light_label"/>
+                            <field name="vendor_modification_notify_user_ids" widget="many2many_tags"/>
+                        </div>
+                    </div>
+                </setting>
+            </setting>
+        </field>
+    </record>
+    <record id="res_config_settings_view_form_inherit_wkk_approvals" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.wkk_approvals</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <form position="inside">
+                <app data-string="Approvals" string="Approvals" name="wkk_approvals">
+                    <block title="Model Settings" name="approvals_model_settings">
+                        <setting company_dependent="1" help="Models that use the approvals mixin and their settings.">
+                            <field name="model_approval_settings_ids"/>
+                        </setting>
+                    </block>
+                </app>
+            </form>
+        </field>
+    </record>
+</odoo>
