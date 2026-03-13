@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_project_view_form_simplified_template" model="ir.ui.view">
+        <field name="name">project.project.create.wizard.form.inherit.wkk.project</field>
+        <field name="model">project.template.create.wizard</field>
+        <field name="inherit_id" ref="project.project_project_view_form_simplified_template"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']/.." position="after">
+                <group>
+                    <field name="referred_by"/>
+                    <field name="referred_name" invisible="referred_by not in ['third_party', 'others']"/>
+                    <field name="referred_employee" invisible="referred_by != 'employee'"/>
+                    <field name="priority"/>
+                    <field name="rfp_upload_file" filename="rfp_file_name"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
