@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.wkk.project</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sales_person']/field[@name='client_order_ref']"
+                position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <group name="order_details" position="inside">
+                <field name="client_order_ref" string="Project Reference" readonly="1"/>
+                <field name="project_type_id" domain="[('is_template', '=', True)]"/>
+            </group>
+        </field>
+    </record>
+</odoo>

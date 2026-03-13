@@ -4,12 +4,6 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='sales_person']/field[@name='client_order_ref']" position="attributes">
-				<attribute name="invisible">1</attribute>
-			</xpath>
-			<group name="order_details" position="inside">
-				<field name="client_order_ref" required="1"/>
-			</group>
             <!-- Approval Dev -->
             <header position="inside">
                 <field name="approval_request_id" invisible="1"/>
