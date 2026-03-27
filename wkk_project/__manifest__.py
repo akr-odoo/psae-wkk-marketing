@@ -5,9 +5,9 @@
     "author": "Odoo PS",
     "website": "https://www.odoo.com",
     "category": "Services/Project",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "license": "OEEL-1",
-    "depends": ["sale_purchase_project", "hr"],
+    "depends": ["sale_purchase_project", "sale_project", "hr", "wkk_approvals"],
     "data": [
         "data/ir_sequence_data.xml",
         "views/project_task_views.xml",

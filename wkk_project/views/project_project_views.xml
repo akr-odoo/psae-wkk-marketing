@@ -1,9 +1,12 @@
 <odoo>
-    <record id="project_project_view_form_simplified" model="ir.ui.view">
+    <record id="project_project_view_form_simplified_inherit" model="ir.ui.view">
         <field name="name">project.project.view.form.simplified.inherit.wkk.project</field>
         <field name="model">project.project</field>
-        <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+        <field name="inherit_id" ref="sale_project.project_project_view_form_simplified_inherit"/>
         <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
+            </field>
             <xpath expr="//div[hasclass('o_settings_container')]" position="inside">
                 <setting class="col-lg-12" string="Extra Fields" help="Fill in fields for project quick creation">
                     <group name="wkk_fields">
@@ -28,6 +31,9 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project"/>
         <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
+            </field>
             <xpath expr="//field[@name='partner_id']/.." position="inside">
                 <field name="project_reference" readonly="1"/>
                 <field name="priority"/>
@@ -54,6 +60,9 @@
             <kanban position="attributes">
                 <attribute name="quick_create">0</attribute>
             </kanban>
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
+            </field>
             <field name="tag_ids" position="before">
                 <div t-if="record.priority.raw_value" name="priority_display" class="d-flex align-items-baseline">
                     <t t-if="record.priority.raw_value == 'low'">
@@ -73,6 +82,17 @@
                         <field name="priority"  widget="badge"/>
                     </t>
                 </div>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_project" model="ir.ui.view">
+        <field name="name">project.project.list.inherit.wkk.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
             </field>
         </field>
     </record>

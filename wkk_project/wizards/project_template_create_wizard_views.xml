@@ -5,6 +5,9 @@
         <field name="model">project.template.create.wizard</field>
         <field name="inherit_id" ref="project.project_project_view_form_simplified_template"/>
         <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
+            </field>
             <xpath expr="//field[@name='date']/.." position="after">
                 <group>
                     <field name="referred_by"/>
