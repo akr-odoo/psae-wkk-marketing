@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     "name": "WKK - Project",
     "summary": "WKK - Project Extension",
     "author": "Odoo PS",
     "website": "https://www.odoo.com",
     "category": "Services/Project",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "license": "OEEL-1",
     "depends": ["sale_purchase_project", "sale_project", "hr", "wkk_approvals"],
     "data": [

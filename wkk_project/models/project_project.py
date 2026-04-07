@@ -6,7 +6,7 @@ class ProjectProject(models.Model):
 
     project_reference = fields.Char(copy=False)
     referred_by = fields.Selection(
-        [("employee", "Employee"), ("manager", "Manager"), ("third_party", "Third Party"), ("others", "Others")],
+        [("employee", "Employee"), ("management", "Management"), ("third_party", "Third Party"), ("others", "Others")],
         copy=False,
     )
     referred_name = fields.Char(copy=False)
@@ -67,4 +67,6 @@ class ProjectProject(models.Model):
             "note_sale": self.note_sale,
             "note_purchase": self.note_purchase,
         })
-        return super().action_create_from_template(values, role_to_users_mapping)
+        project = super().action_create_from_template(values, role_to_users_mapping)
+        project.task_ids._compute_active()
+        return project

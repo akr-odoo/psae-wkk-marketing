@@ -6,7 +6,7 @@ class ProjectTemplateCreateWizard(models.TransientModel):
 
     project_reference = fields.Char(copy=False)
     referred_by = fields.Selection(
-        [("employee", "Employee"), ("manager", "Manager"), ("third_party", "Third Party"), ("others", "Others")],
+        [("employee", "Employee"), ("management", "Management"), ("third_party", "Third Party"), ("others", "Others")],
         copy=False,
     )
     referred_name = fields.Char(copy=False)
