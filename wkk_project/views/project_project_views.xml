@@ -1,0 +1,99 @@
+<odoo>
+    <record id="project_project_view_form_simplified_inherit" model="ir.ui.view">
+        <field name="name">project.project.view.form.simplified.inherit.wkk.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="sale_project.project_project_view_form_simplified_inherit"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
+            </field>
+            <xpath expr="//div[hasclass('o_settings_container')]" position="inside">
+                <setting class="col-lg-12" string="Extra Fields" help="Fill in fields for project quick creation">
+                    <group name="wkk_fields">
+                        <group>
+                            <field name="priority"/>
+                            <field name="rfp_upload_file" filename="rfp_file_name"/>
+                            <field name="project_type_id" domain="[('is_template', '=', True)]"/>
+                        </group>
+                        <group>
+                            <field name="referred_by"/>
+                            <field name="referred_name" invisible="referred_by not in ['third_party', 'others']"/>
+                            <field name="referred_employee" invisible="referred_by != 'employee'"/>
+                        </group>
+                    </group>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">project.project.form.inherit.wkk.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
+            </field>
+            <xpath expr="//field[@name='partner_id']/.." position="inside">
+                <field name="project_reference" readonly="1"/>
+                <field name="priority"/>
+                <field name="rfp_upload_file" filename="rfp_file_name"/>
+            </xpath>
+            <xpath expr="//field[@name='date']/.." position="inside">
+                <field name="referred_by"/>
+                <field name="referred_name" invisible="referred_by not in ['third_party', 'others']"/>
+                <field name="referred_employee" invisible="referred_by != 'employee'"/>
+            </xpath>
+            <group name="extra_settings" position="inside">
+                <field name="project_type_id" invisible="is_template" domain="[('is_template', '=', True)]"/>
+                <field name="note_sale" invisible="not is_template"/>
+                <field name="note_purchase" invisible="not is_template"/>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_project_kanban" model="ir.ui.view">
+        <field name="name">project.project.kanban.inherit.wkk.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <kanban position="attributes">
+                <attribute name="quick_create">0</attribute>
+            </kanban>
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
+            </field>
+            <field name="tag_ids" position="before">
+                <div t-if="record.priority.raw_value" name="priority_display" class="d-flex align-items-baseline">
+                    <t t-if="record.priority.raw_value == 'low'">
+                        <span class="fa fa-arrow-down me-2" title="Priority"/>
+                        <field name="priority"  widget="badge"/>
+                    </t>
+                    <t t-elif="record.priority.raw_value == 'medium'">
+                        <span class="fa fa-minus-square me-2" title="Priority"/>
+                        <field name="priority"  widget="badge"/>
+                    </t>
+                    <t t-elif="record.priority.raw_value == 'high'">
+                        <span class="fa fa-flag me-2" title="Priority"/>
+                        <field name="priority"  widget="badge"/>
+                    </t>
+                    <t t-elif="record.priority.raw_value == 'critical'">
+                        <span class="fa fa-exclamation-triangle me-2" title="Priority"/>
+                        <field name="priority"  widget="badge"/>
+                    </t>
+                </div>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_project" model="ir.ui.view">
+        <field name="name">project.project.list.inherit.wkk.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('partner_type', 'in', ['customer', 'both'])]</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
