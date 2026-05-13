@@ -80,3 +80,7 @@ class AccountMove(models.Model):
         action = super().button_cancel()
         self.action_cancel_approval()
         return action
+
+    def action_print_delivery_note(self):
+        self.ensure_one()
+        return self.env.ref('wkk_account.action_report_delivery_note_invoice').report_action(self)

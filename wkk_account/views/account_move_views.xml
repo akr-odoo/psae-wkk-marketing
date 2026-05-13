@@ -10,6 +10,11 @@
                 <field name="requires_approval" invisible="1"/>
                 <field name="can_current_user_approve" invisible="1"/>
 
+                <!-- Print Delivery Note (customer invoices only, posted) -->
+                <button name="action_print_delivery_note"
+                        type="object" string="Print Delivery Note"
+                        invisible="move_type != 'out_invoice' or state != 'posted'"/>
+
                 <!-- Request buttons -->
                 <button name="action_create_approvals"
                         type="object" string="Request Approval"
