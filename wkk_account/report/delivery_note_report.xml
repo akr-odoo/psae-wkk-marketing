@@ -23,13 +23,20 @@
 
             <div class="clearfix invoice_main">
                 <div class="page mb-4">
-                    <h2 class="mt-4">
-                        <span>Delivery Note for Invoice</span>
-                        <span t-translation="off"> | </span>
-                        <span t-if="o.name and o.name != '/'" t-field="o.name">INV/2023/0001</span>
-                        <span t-translation="off"> | </span>
-                        <span t-translation="off" dir="rtl">إشعار تسليم للفاتورة</span>
-                    </h2>
+                    <table class="table table-borderless mt-2">
+                        <t t-set="title_th_class" t-value="'text-center align-middle h2 mb-0 py-0 text-nowrap'" />
+                        <tr>
+                            <th t-att-class="title_th_class">
+                                <span>Delivery Note for Invoice</span>
+                            </th>
+                            <th t-att-class="title_th_class">
+                                <span t-if="o.name and o.name != '/'" t-field="o.name">INV/2023/0001</span>
+                            </th>
+                            <th t-att-class="title_th_class">
+                                <span t-translation="off" dir="rtl">إشعار تسليم للفاتورة</span>
+                            </th>
+                        </tr>
+                    </table>
 
                     <div class="oe_structure" />
                     <div id="informations" class="row mb-4" t-if="o.invoice_origin or o.ref">
@@ -48,7 +55,7 @@
                     <div class="oe_structure" />
                     <table class="table o_main_table table-borderless mb-0" name="delivery_note_line_table">
                         <thead>
-                            <tr>
+                            <tr class="border-bottom">
                                 <th name="th_description" class="text-start">
                                     <span t-translation="off" dir="rtl">وصف السلعة او الخدمة<br /></span>
                                     <span>Description</span>
@@ -60,7 +67,7 @@
                             </tr>
                         </thead>
                         <tbody class="invoice_tbody">
-                            <t t-set="lines_to_report" t-value="o._get_move_lines_to_report()" />
+                            <t t-set="lines_to_report" t-value="o.invoice_line_ids.sorted(key=lambda l: (l.sequence, l.id))" />
                             <t t-foreach="lines_to_report" t-as="line">
                                 <t t-set="is_note" t-value="line.display_type == 'line_note'" />
                                 <t t-set="is_section" t-value="line.display_type == 'line_section'" />
@@ -92,18 +99,44 @@
 
                     <div class="oe_structure" />
                     <div class="mt-5 mb-5 text-center">
-                        <p class="fw-bold mb-1">All the above mentioned services has been delivered in Full</p>
-                        <p t-translation="off" dir="rtl" class="fw-bold mb-0">تم تسليم جميع الخدمات المذكورة أعلاه بالكامل</p>
+                        <p
+                            t-translation="off"
+                            dir="ltr"
+                            class="fw-bold mb-1">All the above-mentioned services have been delivered in full as per the agreed scope. Customer signature confirms acceptance of this delivery, and no further amendments shall apply.</p>
+                        <p
+                            t-translation="off"
+                            dir="rtl"
+                            class="fw-bold mb-0">جميع الخدمات المذكورة أعلاه قد تم تسليمها بالكامل وفقاً للنطاق المتفق عليه. يُعدّ توقيع العميل على هذه الوثيقة تأكيداً باستلام التسليم، ولا يجوز إجراء أي تعديلات إضافية بعد ذلك.</p>
                     </div>
 
-                    <div class="mt-5 pt-5">
-                        <div class="row">
-                            <div class="col-6 offset-6">
-                                <p class="mb-1">
-                                    <strong>Signature:</strong>
-                                </p>
-                                <div style="border-bottom: 1px solid #000; width: 100%; margin-top: 60px;" />
-                            </div>
+                    <div class="row mt-5 pt-5">
+                        <div class="col-6 offset-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td class="text-nowrap pe-1 pb-4 align-bottom">
+                                        <strong>Client Name:</strong>
+                                    </td>
+                                    <td class="w-100 pb-4 align-bottom">
+                                        <span class="d-block border-bottom border-dark">&#160;</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-nowrap pe-1 pb-4 align-bottom">
+                                        <strong>Date:</strong>
+                                    </td>
+                                    <td class="w-100 pb-4 align-bottom">
+                                        <span class="d-block border-bottom border-dark">&#160;</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-nowrap pe-1 align-bottom">
+                                        <strong>Signature:</strong>
+                                    </td>
+                                    <td class="w-100 align-bottom">
+                                        <span class="d-block border-bottom border-dark">&#160;</span>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
