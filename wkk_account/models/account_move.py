@@ -10,7 +10,7 @@ class AccountMove(models.Model):
     @api.constrains(
         'name', 'move_type', 'purchase_vendor_bill_id', 'invoice_date', 'date',
         'invoice_payment_term_id', 'currency_id', 'invoice_date_due', 'source_id',
-        'invoice_line_ids', 'journal_line_ids', 'partner_id', 'invoice_incoterm_id',
+        'invoice_line_ids', 'line_ids', 'partner_id', 'invoice_incoterm_id',
         'incoterm_location', 'fiscal_position_id', 'preferred_payment_method_line_id',
         'auto_post', 'ref', 'invoice_user_id', 'team_id', 'partner_bank_id',
         'payment_reference', 'delivery_date', 'campaign_id', 'medium_id',
@@ -80,3 +80,7 @@ class AccountMove(models.Model):
         action = super().button_cancel()
         self.action_cancel_approval()
         return action
+
+    def action_print_delivery_note(self):
+        self.ensure_one()
+        return self.env.ref('wkk_account.action_report_delivery_note_invoice').report_action(self)
