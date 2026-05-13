@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_report_delivery_note_invoice" model="ir.actions.report">
+        <field name="name">Delivery Note</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wkk_account.report_delivery_note_invoice</field>
+        <field name="report_file">wkk_account.report_delivery_note_invoice</field>
+        <field name="print_report_name">'Delivery Note - %s' % (object.name).replace('/', '_')</field>
+    </record>
+
+    <template id="report_delivery_note_invoice_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)" />
+            <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat" />
+            <t t-set="address">
+                <address class="mb-0" t-field="o.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': True}" />
+                <div t-if="o.partner_id.vat">
+                    <t t-if="o.company_id.account_fiscal_country_id.vat_label" t-out="o.company_id.account_fiscal_country_id.vat_label" />
+                    <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat" />
+                </div>
+            </t>
+
+            <div class="clearfix invoice_main">
+                <div class="page mb-4">
+                    <h2 class="mt-4">
+                        <span>Delivery Note for Invoice</span>
+                        <span t-translation="off" dir="rtl"> / إشعار تسليم للفاتورة</span>
+                        <span t-if="o.name and o.name != '/'" t-field="o.name">INV/2023/0001</span>
+                    </h2>
+
+                    <div class="oe_structure" />
+                    <div id="informations" class="row mb-4" t-if="o.invoice_origin or o.ref">
+                        <div class="col" t-if="o.invoice_origin" name="origin">
+                            <strong t-translation="off" dir="rtl">المصدر<br /></strong>
+                            <strong>Source</strong>
+                            <div t-field="o.invoice_origin">SO123</div>
+                        </div>
+                        <div class="col" t-if="o.ref" name="reference">
+                            <strong t-translation="off" dir="rtl">المرجع<br /></strong>
+                            <strong>Reference</strong>
+                            <div t-field="o.ref">INV/2023/00001</div>
+                        </div>
+                    </div>
+
+                    <div class="oe_structure" />
+                    <table class="table o_main_table table-borderless mb-0" name="delivery_note_line_table">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-start">
+                                    <span t-translation="off" dir="rtl">وصف السلعة او الخدمة<br /></span>
+                                    <span>Description</span>
+                                </th>
+                                <th name="th_quantity" class="text-end">
+                                    <span t-translation="off" dir="rtl">الكمية<br /></span>
+                                    <span>Quantity</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <t t-set="lines_to_report" t-value="o._get_move_lines_to_report()" />
+                            <t t-foreach="lines_to_report" t-as="line">
+                                <t t-set="is_note" t-value="line.display_type == 'line_note'" />
+                                <t t-set="is_section" t-value="line.display_type == 'line_section'" />
+                                <t t-set="is_subsection" t-value="line.display_type == 'line_subsection'" />
+                                <t t-set="is_product" t-value="line.display_type == 'product'" />
+                                <tr
+                                    t-att-class="
+                                    'fw-bolder o_line_section' if is_section else
+                                    'fw-bold o_line_subsection' if is_subsection else
+                                    'fst-italic o_line_note' if is_note else ''">
+                                    <t t-if="is_product">
+                                        <td name="td_name">
+                                            <span t-if="line.name" t-field="line.name" t-options="{'widget': 'text'}" dir="auto" />
+                                        </td>
+                                        <td name="td_quantity" class="o_td_quantity text-end">
+                                            <span t-field="line.quantity" class="text-nowrap" />
+                                            <span t-field="line.product_uom_id" groups="uom.group_uom" />
+                                        </td>
+                                    </t>
+                                    <t t-elif="is_section or is_subsection or is_note">
+                                        <td colspan="2">
+                                            <span t-if="line.name" t-field="line.name" t-options="{'widget': 'text'}" dir="auto" />
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="oe_structure" />
+                    <div class="mt-5 mb-5 text-center">
+                        <p class="fw-bold mb-1">All the above mentioned services has been delivered in Full</p>
+                        <p t-translation="off" dir="rtl" class="fw-bold mb-0">تم تسليم جميع الخدمات المذكورة أعلاه بالكامل</p>
+                    </div>
+
+                    <div class="mt-5 pt-5">
+                        <div class="row">
+                            <div class="col-6 offset-6">
+                                <p class="mb-1">
+                                    <strong>Signature:</strong>
+                                </p>
+                                <div style="border-bottom: 1px solid #000; width: 100%; margin-top: 60px;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_delivery_note_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang" />
+                <t t-call="wkk_account.report_delivery_note_invoice_document" t-lang="lang" />
+            </t>
+        </t>
+    </template>
+</odoo>
