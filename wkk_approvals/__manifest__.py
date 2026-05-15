@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'WKK - Approvals',
     'summary': 'WKK Approvals Extension',

@@ -68,7 +68,7 @@ class ResPartner(models.Model):
     def _compute_requires_approval(self):
         for partner in self:
             partner.requires_approval = (
-                (partner.company_id and partner.company_id.vendor_require_approval
+                ((partner.company_id and partner.company_id.vendor_require_approval)
                 or self.env.company.vendor_require_approval)
                 and not partner._origin.vendor_approval_ids.filtered(lambda approval: approval.request_status in ['new', 'pending'])
                 and partner.vendor_state != 'approved'
