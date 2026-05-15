@@ -1,6 +1,7 @@
 from odoo import Command, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
+
 class ApprovalRequest(models.Model):
     _inherit = 'approval.request'
 
@@ -93,7 +94,7 @@ class ApprovalRequest(models.Model):
                         'required': manager_required,
                         'sequence': 9,
                     }))
-                    if manager_user_id in users_to_category_approver.keys():
+                    if manager_user_id in users_to_category_approver:
                         users_to_category_approver.pop(manager_user_id)
 
             for user_id in users_to_category_approver:
