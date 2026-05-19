@@ -1,0 +1,8 @@
+<odoo noupdate="1">
+    <record id="approval_category_allowed_users_rule" model="ir.rule">
+        <field name="name">Approval Category: allowed users only</field>
+        <field name="model_id" ref="approvals.model_approval_category"/>
+        <field name="domain_force">[(1, '=', 1)] if user.has_group('approvals.group_approval_manager') else ['|', ('allowed_user_ids', '=', False),
+            ('allowed_user_ids', 'in', user.ids)]</field>
+    </record>
+</odoo>

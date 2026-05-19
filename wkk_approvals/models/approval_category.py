@@ -7,9 +7,20 @@ class ApprovalCategory(models.Model):
 
     approval_type = fields.Selection(selection_add=[
         ('vendor_approval', 'Vendor Approval'),
+        ('redirect_approval', 'Redirect Approval'),
     ])
-    model_id = fields.Many2one('ir.model', string='Model', help="Model for which this approval category is applicable")
-    model_name = fields.Char(related='model_id.model')
+    model_id = fields.Many2one("ir.model", string="Model", help="Model for which this approval category is applicable")
+    folder_id = fields.Many2one("approval.folder", string="Approval Folder", ondelete="set null")
+    redirect_action_id = fields.Many2one("ir.actions.act_window")
+    allowed_user_ids = fields.Many2many('res.users', 'approval_category_allowed_users_rel', 'category_id', 'user_id')
+
+    def create_request(self):
+        self.ensure_one()
+        if self.approval_type == 'redirect_approval':
+            if not self.redirect_action_id:
+                raise ValidationError(_("No action specified to redirect to"))
+            return {**self.redirect_action_id._get_action_dict(), "views": [(False, "form")], "view_mode": "form"}
+        return super().create_request()
 
     def _constrains_approval_minimum(self):
         """Override to ensure minimum is not less than required approvers only if domain is not set"""
