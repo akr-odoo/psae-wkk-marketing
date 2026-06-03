@@ -4,7 +4,7 @@
     "author": "Odoo PS",
     "website": "https://www.odoo.com",
     "category": "Accounting/Accounting",
-    "version": "19.0.2.1.0",
+    "version": "19.0.2.1.1",
     "license": "OEEL-1",
     "depends": ["accountant", "account_batch_payment"],
     "data": [
