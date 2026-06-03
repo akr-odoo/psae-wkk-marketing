@@ -5,6 +5,7 @@
         <field name="view_mode">kanban</field>
         <field name="view_id" ref="approvals.approval_category_view_kanban"/>
         <field name="domain">[('folder_id', '=', active_id)]</field>
+        <field name="context">{"group_by": "folder_tag_ids"}</field>
     </record>
 
     <record id="action_open_approval_folder" model="ir.actions.server">
@@ -23,7 +24,7 @@
             <list>
                 <field name="name"/>
                 <field name="description"/>
-                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             </list>
         </field>
     </record>
@@ -51,7 +52,7 @@
                     </div>
                     <group>
                         <field name="description"/>
-                        <field name="tag_ids" widget="many2many_tags"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         <field name="category_ids" widget="many2many_tags"/>
                     </group>
                 </sheet>
@@ -76,7 +77,7 @@
                         <main class="ms-2">
                             <field name="name" class="fw-bold fs-5"/>
                             <field name="description" class="text-muted lh-1 mb-1 mt-1"/>
-                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                             <footer>
                                 <button type="action"
                                     class="btn btn-primary btn-sm"

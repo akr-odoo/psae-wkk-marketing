@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="approval_category_view_form_inherit_wkk_approvals" model="ir.ui.view">
         <field name="name">approval.category.view.form.inherit.wkk.approvals</field>
@@ -29,6 +28,7 @@
                     required="approval_type == 'redirect_approval'"
                     placeholder="e.g. hr_holidays.hr_leave_action_my"/>
                 <field name="allowed_user_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                <field name="folder_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             </xpath>
         </field>
     </record>
