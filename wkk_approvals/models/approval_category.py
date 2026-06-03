@@ -13,6 +13,7 @@ class ApprovalCategory(models.Model):
     folder_id = fields.Many2one("approval.folder", string="Approval Folder", ondelete="set null")
     redirect_action_id = fields.Many2one("ir.actions.act_window")
     allowed_user_ids = fields.Many2many('res.users', 'approval_category_allowed_users_rel', 'category_id', 'user_id')
+    folder_tag_ids = fields.Many2many("approval.folder.tag", string="Folder Tags")
 
     def create_request(self):
         self.ensure_one()

@@ -11,6 +11,14 @@ class ApprovalRequest(models.Model):
     origin_reference = fields.Integer(string='Origin Reference', readonly=True, help="Used to link back to the originating document")
     origin_record_name = fields.Char(string="Origin Document", compute="_compute_origin_record_name", store=True)
     currency_id = fields.Many2one("res.currency")
+    folder_tag_ids = fields.Many2many(
+        "approval.folder.tag", compute="_compute_folder_tag_ids", string="Folder Tags", store=True
+    )
+
+    @api.depends("category_id.folder_tag_ids")
+    def _compute_folder_tag_ids(self):
+        for request in self:
+            request.folder_tag_ids = request.category_id.folder_tag_ids
 
     @api.depends('res_model', 'res_id')
     def _compute_origin_record_name(self):

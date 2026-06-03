@@ -15,6 +15,7 @@
                 <field name="res_model" invisible="not res_model" />
                 <field name="res_id" invisible="not res_id" />
                 <field name="origin_reference" invisible="not origin_reference" />
+                <field name="folder_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             </group>
         </field>
     </record>
