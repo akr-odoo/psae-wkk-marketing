@@ -3,7 +3,15 @@
         id="approval_folders_config_menu"
         name="Approval Folders"
         action="wkk_approvals.action_approval_folder_configuration"
-        parent="approvals.approvals_menu_config"/>
+        parent="approvals.approvals_menu_config"
+        sequence="151"/>
+
+    <menuitem
+        id="approval_folder_tags_config_menu"
+        name="Approval Folder Tags"
+        action="wkk_approvals.action_approval_folder_tags"
+        parent="approvals.approvals_menu_config"
+        sequence="152"/>
 
     <record id="approvals.approvals_menu_root" model="ir.ui.menu">
         <field name="action" ref="wkk_approvals.action_approval_folder_dashboard"/>
