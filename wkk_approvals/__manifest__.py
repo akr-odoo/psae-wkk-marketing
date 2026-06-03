@@ -5,7 +5,7 @@
     "license": "OEEL-1",
     "website": "https://www.odoo.com",
     "category": "Human Resources/Approvals",
-    "version": "19.0.3.1.0",
+    "version": "19.0.3.2.0",
     "depends": ["approvals", "accountant", "purchase_requisition", "documents", "sale"],
     "data": [
         "security/ir.model.access.csv",
@@ -13,6 +13,7 @@
         "data/ir_cron_data.xml",
         "views/account_move_views.xml",
         "views/approval_folder_views.xml",
+        "views/approval_folder_tag_views.xml",
         "views/approval_category_views.xml",
         "views/model_approval_settings_views.xml",
         "views/approval_request_views.xml",

@@ -5,6 +5,7 @@ from . import documents_type
 from . import documents_document
 from . import approval_product_line
 from . import approval_folder
+from . import approval_folder_tag
 from . import approval_category
 from . import approval_category_approver
 from . import model_approval_settings
