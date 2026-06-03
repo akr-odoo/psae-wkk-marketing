@@ -12,7 +12,7 @@ class ApprovalRequest(models.Model):
     origin_record_name = fields.Char(string="Origin Document", compute="_compute_origin_record_name", store=True)
     currency_id = fields.Many2one("res.currency")
     folder_tag_ids = fields.Many2many(
-        "approval.folder.tag", compute="_compute_folder_tag_ids", string="Folder Tags", store=True
+        "approval.folder.tag", compute="_compute_folder_tag_ids", string="Tags", store=True
     )
 
     @api.depends("category_id.folder_tag_ids")
