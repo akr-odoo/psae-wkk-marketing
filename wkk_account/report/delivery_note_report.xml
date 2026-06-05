@@ -14,9 +14,14 @@
             <t t-set="o" t-value="o.with_context(lang=lang)" />
             <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat" />
             <t t-set="address">
-                <address class="mb-0" t-field="o.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': True}" />
+                <address
+                    class="mb-0"
+                    t-field="o.partner_id"
+                    t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': True}" />
                 <div t-if="o.partner_id.vat">
-                    <t t-if="o.company_id.account_fiscal_country_id.vat_label" t-out="o.company_id.account_fiscal_country_id.vat_label" />
+                    <t
+                        t-if="o.company_id.account_fiscal_country_id.vat_label"
+                        t-out="o.company_id.account_fiscal_country_id.vat_label" />
                     <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat" />
                 </div>
             </t>
@@ -67,7 +72,9 @@
                             </tr>
                         </thead>
                         <tbody class="invoice_tbody">
-                            <t t-set="lines_to_report" t-value="o.invoice_line_ids.sorted(key=lambda l: (l.sequence, l.id))" />
+                            <t
+                                t-set="lines_to_report"
+                                t-value="o.invoice_line_ids.sorted(key=lambda l: (l.sequence, l.id))" />
                             <t t-foreach="lines_to_report" t-as="line">
                                 <t t-set="is_note" t-value="line.display_type == 'line_note'" />
                                 <t t-set="is_section" t-value="line.display_type == 'line_section'" />
@@ -80,7 +87,11 @@
                                     'fst-italic o_line_note' if is_note else ''">
                                     <t t-if="is_product">
                                         <td name="td_name">
-                                            <span t-if="line.name" t-field="line.name" t-options="{'widget': 'text'}" dir="auto" />
+                                            <span
+                                                t-if="line.name"
+                                                t-field="line.name"
+                                                t-options="{'widget': 'text'}"
+                                                dir="auto" />
                                         </td>
                                         <td name="td_quantity" class="o_td_quantity text-end">
                                             <span t-field="line.quantity" class="text-nowrap" />
@@ -89,7 +100,11 @@
                                     </t>
                                     <t t-elif="is_section or is_subsection or is_note">
                                         <td colspan="2">
-                                            <span t-if="line.name" t-field="line.name" t-options="{'widget': 'text'}" dir="auto" />
+                                            <span
+                                                t-if="line.name"
+                                                t-field="line.name"
+                                                t-options="{'widget': 'text'}"
+                                                dir="auto" />
                                         </td>
                                     </t>
                                 </tr>
@@ -109,36 +124,25 @@
                             class="fw-bold mb-0">جميع الخدمات المذكورة أعلاه قد تم تسليمها بالكامل وفقاً للنطاق المتفق عليه. يُعدّ توقيع العميل على هذه الوثيقة تأكيداً باستلام التسليم، ولا يجوز إجراء أي تعديلات إضافية بعد ذلك.</p>
                     </div>
 
-                    <div class="row mt-5 pt-5">
-                        <div class="col-6 offset-6">
-                            <table class="table table-borderless">
-                                <tr>
-                                    <td class="text-nowrap pe-1 pb-4 align-bottom">
-                                        <strong>Client Name:</strong>
-                                    </td>
-                                    <td class="w-100 pb-4 align-bottom">
-                                        <span class="d-block border-bottom border-dark">&#160;</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap pe-1 pb-4 align-bottom">
-                                        <strong>Date:</strong>
-                                    </td>
-                                    <td class="w-100 pb-4 align-bottom">
-                                        <span class="d-block border-bottom border-dark">&#160;</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap pe-1 align-bottom">
-                                        <strong>Signature:</strong>
-                                    </td>
-                                    <td class="w-100 align-bottom">
-                                        <span class="d-block border-bottom border-dark">&#160;</span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                    <table class="o_wkk_signature_block mt-5 pt-5">
+                        <tr>
+                            <td />
+                            <td>
+                                <div class="mb-4">
+                                    <strong class="float-start pe-2">Client Name:</strong>
+                                    <span class="d-block overflow-hidden border-bottom border-dark">&#160;</span>
+                                </div>
+                                <div class="mb-4">
+                                    <strong class="float-start pe-2">Date:</strong>
+                                    <span class="d-block overflow-hidden border-bottom border-dark">&#160;</span>
+                                </div>
+                                <div class="mb-0">
+                                    <strong class="float-start pe-2">Signature:</strong>
+                                    <span class="d-block overflow-hidden border-bottom border-dark">&#160;</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </t>
