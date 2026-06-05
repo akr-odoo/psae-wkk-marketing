@@ -4,7 +4,7 @@
     "author": "Odoo PS",
     "website": "https://www.odoo.com",
     "category": "Accounting/Accounting",
-    "version": "19.0.2.1.2",
+    "version": "19.0.2.1.3",
     "license": "OEEL-1",
     "depends": ["accountant", "account_batch_payment"],
     "data": [
@@ -16,5 +16,10 @@
         "views/account_move_views.xml",
         "wizards/account_payment_register_views.xml",
     ],
+    "assets": {
+        "web.report_assets_common": [
+            "wkk_account/static/src/scss/delivery_note_report.scss",
+        ],
+    },
     "task_ids": [5110120, 5211287, 6140204, 6221612],
 }

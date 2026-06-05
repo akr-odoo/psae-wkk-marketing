@@ -1,0 +1,19 @@
+table.o_wkk_signature_block {
+    width: 100%;
+    page-break-inside: avoid;
+    border: none !important;
+    border-collapse: collapse;
+    background: transparent !important;
+
+    tr,
+    td {
+        border: none !important;
+        background: transparent !important;
+        page-break-inside: avoid;
+    }
+
+    td {
+        width: 50%;
+        padding: 0 !important;
+    }
+}
