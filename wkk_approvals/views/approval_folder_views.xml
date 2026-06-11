@@ -1,0 +1,106 @@
+<odoo>
+    <record id="approval_category_action_by_folder" model="ir.actions.act_window">
+        <field name="name">Approval Types</field>
+        <field name="res_model">approval.category</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="approvals.approval_category_view_kanban"/>
+        <field name="domain">[('folder_id', '=', active_id)]</field>
+        <field name="context">{"group_by": "folder_tag_ids"}</field>
+    </record>
+
+    <record id="action_open_approval_folder" model="ir.actions.server">
+        <field name="name">Open Approval Folder</field>
+        <field name="model_id" ref="model_approval_folder"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records._get_records_action(name="Approval Settings")
+        </field>
+    </record>
+
+    <record id="approval_folder_view_list" model="ir.ui.view">
+        <field name="name">approval.folder.view.list</field>
+        <field name="model">approval.folder</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="approval_folder_view_form" model="ir.ui.view">
+        <field name="name">approval.folder.view.form</field>
+        <field name="model">approval.folder</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(wkk_approvals.approval_category_action_by_folder)d" type="action"
+                            class="oe_stat_button" invisible="not category_count" icon="fa-pencil">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Approval Categories</span>
+                                <field name="category_count" class="o_stat_value"/>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" string="Approval Folder"/>
+                        <h1>
+                            <field name="name" placeholder="E.g., HR Approvals"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="description"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <field name="category_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="approval_folder_view_kanban" model="ir.ui.view">
+        <field name="name">approval.folder.view.kanban</field>
+        <field name="model">approval.folder</field>
+        <field name="arch" type="xml">
+            <kanban create="false" can_open="0" class="o_modules_kanban">
+                <templates>
+                    <t t-name="menu" groups="approvals.group_approval_user">
+                        <a t-if="widget.editable"
+                            role="menuitem"
+                            type="action"
+                            name="%(wkk_approvals.action_open_approval_folder)d"
+                            class="dropdown-item">Edit</a>
+                    </t>
+                    <t t-name="card" class="flex-row">
+                        <main class="ms-2">
+                            <field name="name" class="fw-bold fs-5"/>
+                            <field name="description" class="text-muted lh-1 mb-1 mt-1"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <footer>
+                                <button type="action"
+                                    class="btn btn-primary btn-sm"
+                                    name="%(wkk_approvals.approval_category_action_by_folder)d">
+                                    Approval Types
+                                </button>
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_approval_folder_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">approval.folder</field>
+        <field name="view_mode">kanban</field>
+    </record>
+
+    <record id="action_approval_folder_configuration" model="ir.actions.act_window">
+        <field name="name">Approval Folders</field>
+        <field name="res_model">approval.folder</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

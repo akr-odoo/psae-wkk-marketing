@@ -2,3 +2,6 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 wkk_account.access_documents_type,wkk.account.access.documents.type,model_documents_type,base.group_user,1,1,1,1
 access_model_approval_settings_admin,access_model_approval_settings_admin,model_model_approval_settings,base.group_system,1,1,1,1
 access_model_approval_settings_user,access_model_approval_settings_user,model_model_approval_settings,base.group_user,1,1,1,1
+access_approval_folder_user,access_approval_folder_user,model_approval_folder,base.group_user,1,0,0,0
+access_approval_folder_manager,access_approval_folder_manager,model_approval_folder,approvals.group_approval_manager,1,1,1,1
+access_approval_folder_tag_user,access_approval_folder_tag_user,model_approval_folder_tag,base.group_user,1,1,1,1

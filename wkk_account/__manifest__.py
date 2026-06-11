@@ -1,19 +1,25 @@
-# -*- coding: utf-8 -*-
 {
-    'name': 'WKK - Account',
-    'summary': 'WKK - Account Extension',
-    'author': 'Odoo PS',
-    'website': 'https://www.odoo.com',
-    'category': 'Accounting/Accounting',
-    'version': '19.0.2.0.0',
-    'license': 'OEEL-1',
-    'depends': ['accountant', 'account_batch_payment', 'wkk_approvals'],
-    'data': [
-        'data/ir_cron.xml',
-        'views/account_payment_views.xml',
-        'views/account_batch_payment_views.xml',
-        'views/account_journal_views.xml',
-        'wizards/account_payment_register_views.xml',
+    "name": "WKK - Account",
+    "summary": "WKK - Account Extension",
+    "author": "Odoo PS",
+    "website": "https://www.odoo.com",
+    "category": "Accounting/Accounting",
+    "version": "19.0.2.1.3",
+    "license": "OEEL-1",
+    "depends": ["accountant", "account_batch_payment"],
+    "data": [
+        "data/ir_cron.xml",
+        "report/delivery_note_report.xml",
+        "views/account_payment_views.xml",
+        "views/account_batch_payment_views.xml",
+        "views/account_journal_views.xml",
+        "views/account_move_views.xml",
+        "wizards/account_payment_register_views.xml",
     ],
-    'task_ids': [5110120, 5211287]
+    "assets": {
+        "web.report_assets_common": [
+            "wkk_account/static/src/scss/delivery_note_report.scss",
+        ],
+    },
+    "task_ids": [5110120, 5211287, 6140204, 6221612],
 }

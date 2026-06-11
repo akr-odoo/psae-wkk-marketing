@@ -1,6 +1,7 @@
 from odoo import Command, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
+
 class ApprovalRequest(models.Model):
     _inherit = 'approval.request'
 
@@ -10,6 +11,14 @@ class ApprovalRequest(models.Model):
     origin_reference = fields.Integer(string='Origin Reference', readonly=True, help="Used to link back to the originating document")
     origin_record_name = fields.Char(string="Origin Document", compute="_compute_origin_record_name", store=True)
     currency_id = fields.Many2one("res.currency")
+    folder_tag_ids = fields.Many2many(
+        "approval.folder.tag", compute="_compute_folder_tag_ids", string="Tags", store=True
+    )
+
+    @api.depends("category_id.folder_tag_ids")
+    def _compute_folder_tag_ids(self):
+        for request in self:
+            request.folder_tag_ids = request.category_id.folder_tag_ids
 
     @api.depends('res_model', 'res_id')
     def _compute_origin_record_name(self):
@@ -93,7 +102,7 @@ class ApprovalRequest(models.Model):
                         'required': manager_required,
                         'sequence': 9,
                     }))
-                    if manager_user_id in users_to_category_approver.keys():
+                    if manager_user_id in users_to_category_approver:
                         users_to_category_approver.pop(manager_user_id)
 
             for user_id in users_to_category_approver:

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "WKK - Purchase",
     "summary": "WKK - Purchase Extension",

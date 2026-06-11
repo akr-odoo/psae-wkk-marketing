@@ -1,10 +1,11 @@
-# -*- coding: utf-8 -*-
 from . import approval_mixin
 from . import res_company
 from . import res_config_settings
 from . import documents_type
 from . import documents_document
 from . import approval_product_line
+from . import approval_folder
+from . import approval_folder_tag
 from . import approval_category
 from . import approval_category_approver
 from . import model_approval_settings
