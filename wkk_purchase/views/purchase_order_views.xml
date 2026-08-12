@@ -103,6 +103,9 @@
             <field name="fiscal_position_id" position="attributes">
                 <attribute name="readonly" add="approval_status == 'pending'" separator=" or " />
             </field>
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_id']" position="after">
+                <field name="image" widget="image" optional="show" options="{'size': [200, 200]}"/>
+            </xpath>
 
         </field>
     </record>
