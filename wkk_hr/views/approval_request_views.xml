@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="approval_request_view_form" model="ir.ui.view">
+        <field name="name">approval.request.view.form.inherit.wkk.hr</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" string="Time Off" name="action_view_leave_request" type="object" icon="fa-calendar" invisible="not leave_request_id"/>
+            </div>
+            <field name="request_owner_id" position="after">
+                <field name="leave_request_id" invisible="1"/>
+                <field name="employee_id" readonly="1" invisible="not leave_request_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>
