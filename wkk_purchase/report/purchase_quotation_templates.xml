@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchasequotation_document" inherit_id="purchase.report_purchasequotation_document">
+        <th name="th_description" position="after">
+            <th name="th_image"><strong>Image</strong></th>
+        </th>
+        <td id="product" position="after">
+            <td name="td_image">
+                <img t-if="order_line.image" t-att-src="image_data_uri(order_line.image)" class="rfq_line_image"/>
+            </td>
+        </td>
+    </template>
+</odoo>

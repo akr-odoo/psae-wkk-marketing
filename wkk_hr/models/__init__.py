@@ -11,3 +11,4 @@ from . import approval_category
 from . import hr_leave_type
 from . import hr_leave
 from . import approval_request
+from . import ir_attachment
